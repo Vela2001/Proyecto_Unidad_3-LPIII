@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>VENTAS</title>
     </head>
     <body>
@@ -22,31 +22,32 @@
                             <label>Datos del Cliente</label>
                         </div>
                         <div class="form-group d-flex">
-                            <div class="col-sm-4 d-flex">
-                                <input type="text" name="codigocliente" class="form-control col-sm-4" placeholder="Codigo">
+                            <div class="col-sm-6 d-flex">
+                                <input type="text" name="codigocliente" class="form-control" placeholder="Codigo">
                                 <input type="submit" name="accion" value="Buscar" class="btn btn-outline-info">
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" name="nombrescliente" class="form-control col-sm-6">
+                                <input type="text" name="nombrescliente" placeholder="Datos Clientes" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
+                            <br>
                             <label>Datos Producto</label>
                         </div>
                         <div class="form-group d-flex">
-                            <div class="col-sm-4 d-flex">
-                                <input type="text" name="codigoproducto" class="form-control col-sm-4" placeholder="Codigo">
+                            <div class="col-sm-6 d-flex">
+                                <input type="text" name="codigoproducto" class="form-control" placeholder="Codigo">
                                 <input type="submit" name="accion" value="Buscar" class="btn btn-outline-info">
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" name="nombrescliente" class="form-control col-sm-6">
+                                <input type="text" name="nombrescliente" placeholder="Datos Producto" class="form-control">
                             </div>
                         </div>
                         <div class="form-group d-flex">
                             <div class="col-sm-4 d-flex">
                                 <input type="text" name="precio" class="form-control" placeholder="S/.0.00">
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <input type="number" name="cant" placeholder="" class="form-control">
                             </div>
                             <div class="col-sm-3">
@@ -63,11 +64,11 @@
             <div class="col-sm-7">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex col-sm-6 ml-auto">
-                            <label>NumeroSerie</label>
+                        <div class="d-flex col-sm-5 ml-auto">
+                            <label>Nro.Serie: </label>
                             <input type="text" name="NroSerie" class="form-control">
                         </div>
-                        <table class="table-hover">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Nro</th>
@@ -80,7 +81,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               <c:forEach var="em" items="${empleados}">
                                 <tr>
                                     <td></td>
                                     <td></td>
@@ -90,7 +90,6 @@
                                     <td></td>
                                     <td>
                                 </tr>
-                               </c:forEach> 
                             </tbody>
                         </table> 
                     </div>
@@ -103,7 +102,8 @@
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -22,6 +22,25 @@ public class ClienteDAO {
     ResultSet rs;
     int r;
     
+    public Cliente buscar(String dni){
+        Cliente c=new Cliente();
+        String sql="Select * from cliente where Dni="+dni;
+        try {
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while (rs.next()) {
+                c.setId(rs.getInt(1));
+                c.setDni(rs.getString(2));
+                c.setNom(rs.getString(3));
+                c.setDir(rs.getString(4));
+                c.setEs(rs.getString(5))
+            }
+        } catch (Exception e) {
+        }
+        return c;
+    }
+    
     public List Listar(){
        String sql="select * from cliente";
        List<Cliente>lista=new ArrayList<>();
@@ -30,14 +49,14 @@ public class ClienteDAO {
            ps=con.prepareStatement(sql);
            rs=ps.executeQuery();
            while (rs.next()){
-               Empleado em=new Empleado();
-               em.setId(rs.getInt(1));
-               em.setDni(rs.getString(2));
-               em.setNom(rs.getString(3));
-               em.setTel(rs.getString(4));
-               em.setEstado(rs.getString(5));
-               em.setUser(rs.getString(6));
-               lista.add(em);
+               Cliente cli=new Cliente();
+               cli.setId(rs.getInt(1));
+               cli.setDni(rs.getString(2));
+               cli.setNom(rs.getString(3));
+               cli.setTel(rs.getString(4));
+               cli.setEstado(rs.getString(5));
+               cli.setUser(rs.getString(6));
+               lista.add(cli);
                
            }  
        } catch(Exception e){
