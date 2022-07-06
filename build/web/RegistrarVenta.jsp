@@ -66,9 +66,9 @@
             <div class="col-sm-7">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex col-sm-5 ml-auto">
-                            <label>Nro.Serie: </label>
-                            <input type="text" name="NroSerie" value="${nserie}" class="form-control">
+                        <div class="d-flex col-sm-6 ml-auto">
+                            <label class="text-right mt-2 col-sm-6">NRO. SERIE</label>
+                            <input readonly="" type="text" name="numeroserie" value="${nserie}" class="form-control">
                         </div>
                         <table class="table table-hover">
                             <thead>
@@ -102,11 +102,11 @@
                     </div>
                         <div class="card-footer d-flex">
                             <div class="col-sm-6">
-                                <input type="submit" name="accion" value="Generar Venta" class="btn btn-success">
+                                <a href="Controlador?menu=NuevaVenta&accion=GenerarVenta" class="btn btn-success">Generar Venta</a>
                                 <input type="submit" name="accion" value="Cancelar" class="btn btn-danger" style="margin-left: 10px">
                             </div>
                             <div class="col-sm-3 ml-auto">
-                                <input type="text" name="txtTotal" value="${totalPagar}" class="form-control">
+                                <input type="text" name="txtTotal" value="S/.${totalPagar}" class="form-control">
                             </div>    
                         </div>
                 </div>

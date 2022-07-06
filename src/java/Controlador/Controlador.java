@@ -46,6 +46,7 @@ public class Controlador extends HttpServlet {
     int ide;
     int idc;
     int idp;
+  //  int idv;
     
     Venta v=new Venta();
     List<Venta>Lista=new ArrayList<>();
@@ -245,7 +246,7 @@ public class Controlador extends HttpServlet {
                         subtotal=precio*cant;
                         v=new Venta();
                         v.setItem(item);
-                        v.setId(cod);
+                        v.setIdproducto(cod);
                         v.setDescripcionP(descripcion);
                         v.setPrecio(precio);
                         v.setCantidad(cant);
@@ -256,6 +257,27 @@ public class Controlador extends HttpServlet {
                         }
                         request.setAttribute("totalPagar", totalPagar);
                         request.setAttribute("Lista", Lista);
+                        break;
+                    case "Generar Venta":
+                        v.setIdcliente(c.getId());
+                        v.setIdempleado(2);
+                        v.setNumserie(numeroserie);
+                        v.setFecha("2019-06-14");
+                        v.setMonto(totalPagar);
+                        v.setEstado("1");
+                        vdao.guardarVenta(v);
+                        //Guardar Detalle Ventas
+                        int idv=Integer.parseInt(vdao.IdVentas());
+                        for (int i = 0; i < Lista.size(); i++)
+                        {
+                            v=new Venta();
+                            v.setId(idv);
+                            v.setIdproducto(Lista.get(i).getIdproducto());
+                            v.setCantidad(Lista.get(i).getCantidad());
+                            v.setPrecio(Lista.get(i).getPrecio());
+                            vdao.guardarDetalleventas(v);
+                            
+                        }
                         break;
                     default:
                         numeroserie =vdao.GenerarSerie();
