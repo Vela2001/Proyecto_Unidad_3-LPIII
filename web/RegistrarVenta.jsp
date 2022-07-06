@@ -12,10 +12,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>VENTAS</title>
+        <style>
+            @media print{
+                .parte01, .btn, .accion{
+                    display: none;
+                }
+            }
+        </style>
     </head>
     <body>
         <div class="d-flex">
-            <div class="col-lg-5">
+            <div class="col-lg-5 parte01">
                 <div class="card">
                     <form action="Controlador?menu=NuevaVenta" method="POST">
                     <div class="card-body">
@@ -73,13 +80,13 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Nro</th>
-                                    <th>Codigo</th>
-                                    <th>Descripcion</th>
-                                    <th>Precio</th>
-                                    <th>Cantidad</th>
-                                    <th>Subtotal</th>
-                                    <th>Acciones</th>
+                                    <th>N°</th>
+                                    <th>ID</th>
+                                    <th>PRODUCTO</th>
+                                    <th>PRECIO</th>
+                                    <th>CANTIDAD</th>
+                                    <th>SUBTOTAL</th>
+                                    <th class="accion">ACCION</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,7 +99,7 @@
                                     <td>${list.getCantidad()}</td>
                                     <td>${list.getSubtotal()}</td>
                                     <td class="d-flex">
-                                        <a href="#" class="btn btn-warning">Editar</a>
+                                        <a href="Controlador?menu=Producto&accion=Editar&id=${p.getId()}" class="btn btn-warning">Editar</a>
                                         <a href="#" class="btn btn-danger">Eliminar</a>
                                     </td>
                                 </tr>
@@ -102,7 +109,7 @@
                     </div>
                         <div class="card-footer d-flex">
                             <div class="col-sm-6">
-                                <a href="Controlador?menu=NuevaVenta&accion=GenerarVenta" class="btn btn-success">Generar Venta</a>
+                                <a href="Controlador?menu=NuevaVenta&accion=GenerarVenta" onclick="print()" class="btn btn-success">Generar Venta</a>
                                 <input type="submit" name="accion" value="Cancelar" class="btn btn-danger" style="margin-left: 10px">
                             </div>
                             <div class="col-sm-3 ml-auto">
