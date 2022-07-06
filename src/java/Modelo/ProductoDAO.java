@@ -34,7 +34,7 @@ public class ProductoDAO {
                Producto p=new Producto();
                p.setId(rs.getInt(1));
                p.setNom(rs.getString(2));
-               p.setPrecio(rs.getInt(3));
+               p.setPrecio(rs.getDouble(3));
                p.setStock(rs.getInt(4));
                p.setEstado(rs.getString(5));
                lista.add(p);
@@ -45,13 +45,34 @@ public class ProductoDAO {
        return lista;
     }
     
+    public Producto listarId(int id){
+        Producto p=new Producto();
+        String sql="select * from producto where IdProducto="+id;
+        try {
+            con=cn.Conexion();
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while (rs.next()) {
+                p.setId(rs.getInt(1));
+                p.setNom(rs.getString(2));
+                p.setPrecio(rs.getDouble(3));
+                p.setStock(rs.getInt(4));
+                p.setEstado(rs.getString(5));
+            }
+            
+        } catch (Exception e) {
+            
+        }
+        return p;
+    }
     public int agregar(Producto p){
+        
         String sql="insert into producto(Nombres, Precio, Stock, Estado)Values(?,?,?,?)";
         try{
             con=cn.Conexion();
             ps=con.prepareStatement(sql);
             ps.setString(1, p.getNom());
-            ps.setInt(2, p.getPrecio());
+            ps.setDouble(2, p.getPrecio());
             ps.setInt(3, p.getStock());
             ps.setString(4, p.getEstado());
             ps.executeUpdate();
@@ -67,7 +88,7 @@ public class ProductoDAO {
             con=cn.Conexion();
             ps=con.prepareStatement(sql);
             ps.setString(1, p.getNom());
-            ps.setInt(2, p.getPrecio());
+            ps.setDouble(2, p.getPrecio());
             ps.setInt(3, p.getStock());
             ps.setString(4, p.getEstado());
             ps.setInt(5, p.getId());

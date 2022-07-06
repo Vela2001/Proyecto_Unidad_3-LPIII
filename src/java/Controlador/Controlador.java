@@ -5,13 +5,17 @@
 package Controlador;
 
 
+import Config.GenerarSerie;
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
 import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
 import Modelo.Producto;
 import Modelo.ProductoDAO;
+import Modelo.Venta;
+import Modelo.VentaDAO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +46,20 @@ public class Controlador extends HttpServlet {
     int ide;
     int idc;
     int idp;
+    
+    Venta v=new Venta();
+    List<Venta>Lista=new ArrayList<>();
+    int item;
+    int cod;
+    String descripcion;
+    double precio;
+    int cant;
+    double subtotal;
+    double totalPagar;
+    
+    String numeroserie;
+    VentaDAO vdao=new VentaDAO();
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -155,7 +173,7 @@ public class Controlador extends HttpServlet {
             if(menu.equals("Producto")){
                 switch (accion) {
                     case "Listar":
-                        List lista=pdao.Listar();
+                        List lista = pdao.Listar();
                         request.setAttribute("productos", lista);
                         break;
                     case "Agregar":
@@ -163,10 +181,10 @@ public class Controlador extends HttpServlet {
                             double pre = Double.parseDouble(request.getParameter("txtNombres"));
                             int st = Integer.parseInt(request.getParameter("txtTel"));
                             String est =request.getParameter("txtEstado");
-                            p.setDni(dni);
-                            p.setNom(nom);
-                            p.setDir(tel);
-                            p.setEs(est);
+                            p.setNom(dni);
+                            p.setPrecio(pre);
+                            p.setStock(st);
+                            p.setEstado(est);
                             pdao.agregar(p);
                             request.getRequestDispatcher("Controlador?menu=Producto&accion=Listar").forward(request, response);
                             break;
@@ -181,12 +199,12 @@ public class Controlador extends HttpServlet {
                         double pre1 = Double.parseDouble(request.getParameter("txtNombres"));
                         int st1 = Integer.parseInt(request.getParameter("txtTel"));
                         String est1 =request.getParameter("txtEstado");
-                        p.setDni(dni1);
-                        p.setNom(pre1);
-                        p.setTel(st1);
+                        p.setNom(dni1);
+                        p.setPrecio(pre1);
+                        p.setStock(st1);
                         p.setEstado(est1);
                         p.setId(idp);
-                        edao.actualizar(p);
+                        pdao.actualizar(p);
                         request.getRequestDispatcher("Controlador?menu=Producto&accion=Listar").forward(request, response);
                         break;
                     case "Delete":
@@ -208,9 +226,51 @@ public class Controlador extends HttpServlet {
                         c=cdao.buscar(dni);
                         request.setAttribute("c", c);
                         break;
+                    case "BuscarProducto":
+                        int id=Integer.parseInt(request.getParameter("codigoproducto"));
+                        p=pdao.listarId(id);
+                        request.setAttribute("c", c);
+                        request.setAttribute("producto", p);
+                        request.setAttribute("Lista", Lista);
+                        request.setAttribute("totalPagar", totalPagar);
+                        break;
+                    case "Agregar":
+                        request.setAttribute("c", c);
+                        totalPagar =0.0;
+                        item = item+1;
+                        cod=p.getId();
+                        descripcion=request.getParameter("nomproducto");
+                        precio=Double.parseDouble(request.getParameter("precio"));
+                        cant=Integer.parseInt(request.getParameter("cant"));
+                        subtotal=precio*cant;
+                        v=new Venta();
+                        v.setItem(item);
+                        v.setId(cod);
+                        v.setDescripcionP(descripcion);
+                        v.setPrecio(precio);
+                        v.setCantidad(cant);
+                        v.setSubtotal(subtotal);
+                        Lista.add(v);
+                        for (int i = 0; i < Lista.size(); i++){
+                         totalPagar=totalPagar +Lista.get(i).getSubtotal();
+                        }
+                        request.setAttribute("totalPagar", totalPagar);
+                        request.setAttribute("Lista", Lista);
+                        break;
                     default:
-                    break;
-                        //throw new AssertionError();
+                        numeroserie =vdao.GenerarSerie();
+                        if(numeroserie==null){
+                           numeroserie="00000001";
+                           request.setAttribute("nserie", numeroserie);
+                        }
+                        else{
+                            int incrementar=Integer.parseInt(numeroserie);
+                            GenerarSerie gs=new GenerarSerie();
+                            numeroserie=gs.NumeroSerie(incrementar);
+                                request.setAttribute("nserie", numeroserie);
+                        }
+                        
+                        request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
                 }
                 request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
             }
