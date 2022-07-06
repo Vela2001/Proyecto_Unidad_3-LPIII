@@ -8,21 +8,22 @@ package Modelo;
  *
  * @author User
  */
-public class Cliente {
+public class Producto {
+    
     int id;
-    String dni;
     String nom;
-    String dir;
+    int precio;
+    int stock;
     String estado;
 
-    public Cliente() {
-    }   
+    public Producto() {
+    }
 
-    public Cliente(int id, String dni, String nom, String dir, String estado) {
+    public Producto(int id, String nom, int precio, int stock, String estado) {
         this.id = id;
-        this.dni = dni;
         this.nom = nom;
-        this.dir = dir;
+        this.precio = precio;
+        this.stock = stock;
         this.estado = estado;
     }
 
@@ -34,14 +35,6 @@ public class Cliente {
         this.id = id;
     }
 
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
     public String getNom() {
         return nom;
     }
@@ -50,12 +43,20 @@ public class Cliente {
         this.nom = nom;
     }
 
-    public String getDir() {
-        return dir;
+    public int getPrecio() {
+        return precio;
     }
 
-    public void setDir(String dir) {
-        this.dir = dir;
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getEstado() {
@@ -65,5 +66,6 @@ public class Cliente {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    
     
 }

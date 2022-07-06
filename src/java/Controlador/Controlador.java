@@ -5,8 +5,12 @@
 package Controlador;
 
 
+import Modelo.Cliente;
+import Modelo.ClienteDAO;
 import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
+import Modelo.Producto;
+import Modelo.ProductoDAO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -31,7 +35,13 @@ public class Controlador extends HttpServlet {
      */
     Empleado em=new Empleado();
     EmpleadoDAO edao=new EmpleadoDAO();
+    Cliente c = new Cliente();
+    ClienteDAO cdao = new ClienteDAO();
+    Producto p = new Producto ();
+    ProductoDAO pdao = new ProductoDAO();
     int ide;
+    int idc;
+    int idp;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -101,18 +111,18 @@ public class Controlador extends HttpServlet {
                     case "Agregar":
                             String dni=request.getParameter("txtDni");
                             String nom=request.getParameter("txtNombres");
-                            String tel=request.getParameter("txtTel");
-                            String user=request.getParameter("txtEstado");
+                            String dir=request.getParameter("txtDir");
+                            String est=request.getParameter("txtEstado");
                             c.setDni(dni);
                             c.setNom(nom);
-                            c.setDir(tel);
-                            c.setEs(est);
-                            edao.agregar(c);
+                            c.setDir(dir);
+                            c.setEstado(est);
+                            cdao.agregar(c);
                             request.getRequestDispatcher("Controlador?menu=Cliente&accion=Listar").forward(request, response);
                             break;
                     case "Editar":
                         idc=Integer.parseInt(request.getParameter("id"));
-                        Cliente cl=edao.listarId(idc);
+                        Cliente cl=cdao.listarId(idc);
                         request.setAttribute("cliente", cl);
                         request.getRequestDispatcher("Controlador?menu=Cliente&accion=Listar").forward(request, response);
                         break;
@@ -126,7 +136,7 @@ public class Controlador extends HttpServlet {
                         em.setTel(tel1);
                         em.setEstado(est1);
                         em.setId(idc);
-                        edao.actualizar(c);
+                        cdao.actualizar(c);
                         request.getRequestDispatcher("Controlador?menu=Empleado&accion=Listar").forward(request, response);
                         break;
                     case "Delete":
@@ -191,6 +201,17 @@ public class Controlador extends HttpServlet {
             }
             
             if(menu.equals("NuevaVenta")){
+                switch (accion) {
+                    case "BuscarCliente":
+                        String dni=request.getParameter("codigocliente");
+                        c.setDni(dni);
+                        c=cdao.buscar(dni);
+                        request.setAttribute("c", c);
+                        break;
+                    default:
+                    break;
+                        //throw new AssertionError();
+                }
                 request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
             }
             switch (accion) {
